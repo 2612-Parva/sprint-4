@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+
+# Agency sample files and generated client results stay on this machine.
+output/
+cole-street-*
+bayfield-*
+maya-marks.csv
+bayfield-marks.csv
+renewal-list.csv
+interview*

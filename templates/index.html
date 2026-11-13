@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Steady Money - Impact Reporter</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <main class="container">
+    <header class="page-header">
+      <p class="eyebrow">Local agency reporting</p>
+      <h1>Steady Money - Impact Reporter</h1>
+      <p>This runs only on this computer at localhost. Upload the three agency files, then press Process Data. Nothing is sent to another service.</p>
+    </header>
+
+    {% if error %}
+      <div class="error-banner" role="alert">{{ error }}</div>
+    {% endif %}
+
+    <form action="{{ url_for('process') }}" method="post" enctype="multipart/form-data">
+      <div class="upload-grid">
+        <label class="upload-card">
+          <span>Attendance (CSV)</span>
+          <small>Client IDs, sessions, contacts, and Money Checks</small>
+          <input type="file" name="attendance" accept=".csv,text/csv" required>
+        </label>
+
+        <label class="upload-card">
+          <span>Diaries (CSV)</span>
+          <small>Weekly diary completion records</small>
+          <input type="file" name="diaries" accept=".csv,text/csv" required>
+        </label>
+
+        <label class="upload-card">
+          <span>Notes (TXT)</span>
+          <small>Dated counsellor notes and contact instructions</small>
+          <input type="file" name="notes" accept=".txt,text/plain" required>
+        </label>
+      </div>
+
+      <button class="primary-button" type="submit">Process Data</button>
+    </form>
+  </main>
+</body>
+</html>

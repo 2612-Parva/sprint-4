@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ agency_name }} - Steady Money Results</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <main class="container wide">
+    <nav><a href="{{ url_for('index') }}">Process another agency</a></nav>
+
+    <header class="results-header">
+      <div>
+        <p class="eyebrow">Agency report</p>
+        <h1>Agency Name: {{ agency_name }}</h1>
+      </div>
+      <div class="client-count">
+        <strong>Total Clients: {{ total_clients }}</strong>
+      </div>
+    </header>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">summary.md</p>
+          <h2>Agency Summary</h2>
+        </div>
+        <a class="download-button" href="{{ url_for('download', token=token, filename='summary.md') }}">
+          Download summary.md
+        </a>
+      </div>
+      <ul class="summary-list">
+        {% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}
+      </ul>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">results.csv</p>
+          <h2>Client List</h2>
+        </div>
+        <a class="download-button" href="{{ url_for('download', token=token, filename='results.csv') }}">
+          Download results.csv
+        </a>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              {% for column in columns %}<th>{{ column }}</th>{% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in rows %}
+              <tr>
+                {% for column in columns %}<td>{{ row[column] }}</td>{% endfor %}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">On screen only</p>
+          <h2>Run Checks</h2>
+        </div>
+      </div>
+      {% if warnings %}
+        <ul class="summary-list">
+          {% for warning in warnings %}<li>{{ warning }}</li>{% endfor %}
+        </ul>
+      {% else %}
+        <p>Notes were readable, clients were matched, and no uncertain rows were left unresolved.</p>
+      {% endif %}
+    </section>
+  </main>
+</body>
+</html>

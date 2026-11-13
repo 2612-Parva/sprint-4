@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ agency_name }} - Ready to process</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <main class="container">
+    <nav><a href="{{ url_for('index') }}">Upload a different ZIP</a></nav>
+    <header class="results-header">
+      <div>
+        <p class="eyebrow">Read before processing</p>
+        <h1>Agency Name: {{ agency_name }}</h1>
+      </div>
+      <div class="client-count">
+        <strong>Total Clients: {{ total_clients }}</strong>
+      </div>
+    </header>
+
+    <section class="panel">
+      <p class="eyebrow">Detected files</p>
+      <h2>Source check</h2>
+      <ul class="summary-list">
+        <li>Attendance: {{ attendance_name }}</li>
+        <li>Diaries: {{ diaries_name }}</li>
+        <li>Notes: {{ notes_name }}</li>
+      </ul>
+      <form action="{{ url_for('process') }}" method="post">
+        <input type="hidden" name="token" value="{{ token }}">
+        <button class="primary-button" type="submit">Process Data</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
